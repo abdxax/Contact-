@@ -9,8 +9,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -54,8 +59,9 @@ final int SQO=90;
     else {
         Toast.makeText(this, "is empty",Toast.LENGTH_LONG).show();
     }
-        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
-        listView.setAdapter(arrayAdapter);
+        //ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
+        adp a=new adp(arrayList);
+        listView.setAdapter(a);
 
     }
 public void Lis(){
@@ -78,5 +84,39 @@ public void Lis(){
 
         }
 
+    }
+
+    public class adp extends BaseAdapter{
+ArrayList<contactm> contactms;
+
+        public adp(ArrayList<contactm> contactms) {
+            this.contactms = contactms;
+        }
+
+        @Override
+        public int getCount() {
+            return contactms.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            LayoutInflater inflater=getLayoutInflater();
+            View view1=inflater.inflate(R.layout.list_co,null);
+            TextView textView=(TextView) view1.findViewById(R.id.textView4);
+            TextView nam=(TextView) view1.findViewById(R.id.textView5);
+            textView.setText(contactms.get(i).name);
+            nam.setText(contactms.get(i).number);
+            return view1;
+        }
     }
 }
